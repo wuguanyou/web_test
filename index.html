@@ -1,12 +1,185 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
+  <!-- 設定文字編碼，讓中文正常顯示 -->
   <meta charset="utf-8">
+
+  <!-- 讓網頁在手機上依螢幕寬度顯示 -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- 瀏覽器分頁上顯示的名稱 -->
   <title>測試網頁</title>
+
+  <!-- CSS：控制網頁的外觀 -->
+  <style>
+    /* 讓元素的寬度計算包含內距和邊框 */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* 設定整個頁面的背景、字體和置中方式 */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
+      font-family: sans-serif;
+      color: #f7f6ff;
+      background: radial-gradient(ellipse at top, #27366b, #090d1b 70%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 登入表單的外框 */
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      padding: 32px;
+      border: 1px solid #7685ba;
+      border-radius: 16px;
+      background: rgba(12, 18, 42, 0.85);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    /* 頁面標題 */
+    h1 {
+      margin: 0 0 12px;
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    /* 標題下方的說明文字 */
+    .description {
+      margin: 0 0 28px;
+      text-align: center;
+      color: #c8d2ee;
+    }
+
+    /* 每一組標籤和輸入框 */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    /* 帳號、密碼的欄位名稱 */
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #dce4ff;
+    }
+
+    /* 帳號和密碼輸入框 */
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #7685ba;
+      border-radius: 8px;
+      background: #101936;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    /* 使用者點進輸入框時的外觀 */
+    input:focus {
+      outline: 2px solid #9eb5ff;
+      border-color: transparent;
+    }
+
+    /* 登入按鈕 */
+    button {
+      width: 100%;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+      background: #8da4ff;
+      color: #101936;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* 滑鼠移到按鈕上時稍微變亮 */
+    button:hover {
+      background: #b3c1ff;
+    }
+
+    /* 顯示表單送出後的訊息 */
+    #message {
+      margin: 16px 0 0;
+      color: #c8d2ee;
+      text-align: center;
+    }
+
+    /* 螢幕較窄時縮小卡片內距 */
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 24px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>測試</h1>
-  <p>請輸入帳密</p>
+  <!-- main 表示這是網頁的主要內容 -->
+  <main class="login-card">
+    <h1>測試</h1>
+    <p class="description">請輸入帳號與密碼</p>
+
+    <!-- 登入表單 -->
+    <form id="login-form">
+      <div class="form-group">
+        <!-- for 的值要和輸入框的 id 一致 -->
+        <label for="username">帳號</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          autocomplete="username"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">密碼</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+
+      <!-- submit 表示按下按鈕時送出表單 -->
+      <button type="submit">登入</button>
+    </form>
+
+    <!-- JavaScript 會把表單結果訊息放在這裡 -->
+    <p id="message" role="status" aria-live="polite"></p>
+  </main>
+
+  <!-- JavaScript：處理表單送出 -->
+  <script>
+    // 找到表單和訊息顯示區
+    const form = document.querySelector("#login-form");
+    const message = document.querySelector("#message");
+
+    // 使用者送出表單時執行這段程式
+    form.addEventListener("submit", function (event) {
+      // 阻止瀏覽器重新載入頁面
+      event.preventDefault();
+
+      // 取得使用者輸入的帳號，並去掉前後空白
+      const username = document.querySelector("#username").value.trim();
+
+      // 取得使用者輸入的密碼
+      const password = document.querySelector("#password").value;
+
+      // 顯示簡單訊息
+      // 目前只示範表單，尚未連接真正的帳號驗證
+      if (username && password) {
+        message.textContent = "表單已送出，但目前還沒有驗證帳號密碼。";
+      }
+    });
+  </script>
 </body>
 </html>
